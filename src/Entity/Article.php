@@ -12,18 +12,18 @@ class Article
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id" type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=true)
+     * @ORM\Column(type="string", length=128)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $content;
 
@@ -48,12 +48,18 @@ class Article
     private $phone;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $summary;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $authorId;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="PetFindMeBundle\Entity\User", inversedBy="articles")
+     * @ORM\JoinColumn(name="authorId", referencedColumnName="id")
      */
     private $author;
 
@@ -61,6 +67,11 @@ class Article
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageFilename;
+
+    public function __construct()
+    {
+        $this->dateAdded = new \DateTime('now');
+    }
 
     public function getId(): ?int
     {
@@ -84,19 +95,19 @@ class Article
         return $this->content;
     }
 
-    public function setContent(?string $content): self
+    public function setContent($content): self
     {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getDateAdded(): ?\DateTimeInterface
+    public function getDateAdded(): ?\DateTime
     {
         return $this->dateAdded;
     }
 
-    public function setDateAdded(\DateTimeInterface $dateAdded): self
+    public function setDateAdded($dateAdded): self
     {
         $this->dateAdded = $dateAdded;
 
@@ -108,7 +119,7 @@ class Article
         return $this->isFound;
     }
 
-    public function setIsFound(string $isFound): self
+    public function setIsFound($isFound): self
     {
         $this->isFound = $isFound;
 
@@ -120,7 +131,7 @@ class Article
         return $this->town;
     }
 
-    public function setTown(string $town): self
+    public function setTown($town): self
     {
         $this->town = $town;
 
@@ -132,19 +143,42 @@ class Article
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone($phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    public function setSummary($summary): void
+    {
+        if (strlen($this->getContent()) > 100)
+        {
+            $this->summary = substr($this->getContent(), 0,
+                    strlen($this->getContent()) / 2) . "...";
+        }
+        else
+        {
+            $this->summary = $this->getContent();
+        }
+    }
+
     public function getAuthorId(): ?int
     {
+        if ($this->summary === null)
+        {
+            $this->setSummary();
+        }
+
         return $this->authorId;
     }
 
-    public function setAuthorId(int $authorId): self
+    public function setAuthorId($authorId): self
     {
         $this->authorId = $authorId;
 
@@ -156,7 +190,7 @@ class Article
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor(User $author = null): self
     {
         $this->author = $author;
 
@@ -168,7 +202,7 @@ class Article
         return $this->imageFilename;
     }
 
-    public function setImageFilename(?string $imageFilename): self
+    public function setImageFilename($imageFilename): self
     {
         $this->imageFilename = $imageFilename;
 
