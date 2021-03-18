@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,13 +13,13 @@ class User
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
@@ -33,9 +34,14 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="author")
      */
-    private $articles = [];
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -78,14 +84,29 @@ class User
         return $this;
     }
 
-    public function getArticles(): ?array
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    function __toString()
+    {
+        return $this->fullName;
+    }
+
+    public function getArticles()
     {
         return $this->articles;
     }
 
-    public function setArticles(?array $articles): self
+    public function addPost(Article $article)
     {
-        $this->articles = $articles;
+        $this->articles[] = $article;
 
         return $this;
     }

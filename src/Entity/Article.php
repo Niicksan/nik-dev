@@ -58,7 +58,7 @@ class Article
     private $authorId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PetFindMeBundle\Entity\User", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
      * @ORM\JoinColumn(name="authorId", referencedColumnName="id")
      */
     private $author;
