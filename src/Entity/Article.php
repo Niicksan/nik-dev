@@ -16,7 +16,6 @@ class Article
      * @ORM\Column(name="id" type="integer")
      */
     private $id;
-    
 
     /**
      * @ORM\Column(type="string", length=128)
