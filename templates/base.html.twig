@@ -23,82 +23,10 @@ See http://symfony.com/doc/current/book/templating.html#template-inheritance-and
 
 <div class="wrapper">
     {% block header %}
-        <header>
-            <div class="navbar navbar-default navbar-static-top" role="navigation">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a href="{{ path('home_index') }}" class="navbar-brand">PetFind.Me</a>
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            {% if app.user %}
-                                <li>
-                                    <a href="{#  {{ path('home_lost') }} #}">
-                                        Изгубени
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('home_found') }} #}">
-                                        Намерени
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('article_create') }} #}">
-                                        Добави обява
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('user_articles') }} #}">
-                                        Моите обяви
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('user_profile') }} #}">
-                                        Моят профил
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('security_logout') }} #}">
-                                        Излез
-                                    </a>
-                                </li>
-                            {% else %}
-                                <li>
-                                    <a href="{# {{ path('home_lost') }} #}">
-                                        Изгубени
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('home_found') }} #}">
-                                        Намерени
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('article_create') }} #}">
-                                        Добави обява
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('user_register') }} #}">
-                                        Регистрация
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{# {{ path('security_login') }} #}">
-                                        Вход
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <!-- HEADER -->
+        {{ include('layout/header.html.twig') }}
+        <!-- HEADER END -->
+
     {% endblock %}
 
     {% block body %}
@@ -106,40 +34,10 @@ See http://symfony.com/doc/current/book/templating.html#template-inheritance-and
     {% endblock %}
 
     {% block footer %}
-        <footer class="footer">
-            <section class="container top ">
-                <div class="about bottom-line">
-                    <h4>Информация</h4>
-                    <ul>
-                        <a href="{#  {{ path('home_about') }} #}"><li><i class="fas fa-info-circle"></i> За нас</li></a>
-                        <a href="{# {{ path('home_contacts') }}#}"><li><i class="fas fa-question-circle"></i> Помощ</li></a>
-                    </ul>
-                </div>
-                <div class="social bottom-line">
-                    <h4>Последвайте ни</h4>
-                    <ul>
-                        <a href="https://www.instagram.com/" class="instagram"><li><i class="fab fa-instagram instagram"></i class="instagram"> Instagram</li></a>
-                        <a href="https://twitter.com/" class="twitter" ><li><i class="fab fa-twitter twitter"></i> Twitter</li></a>
-                        <a href="https://facebook.com" class="facebook"><li><i class="fab fa-facebook-square facebook"></i> Facebook</li></a>
-                    </ul>
-                </div>
+        <!-- Footer-->
+        {{ include('layout/footer.html.twig') }}
+        <!-- Footer end-->
 
-                <div class="contact bottom-line">
-                    <h4>Връзка с нас</h4>
-                    <ul>
-                        <a href="{# {{ path('home_contacts') }} #}">
-                            <li><i class="fas fa-envelope"></i> Емейл: petfind@me.bg</li>
-                        </a>
-                        <li><i class="fa fa-phone-alt"></i> Телефон: 0888888888</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Адрес: София бул. Академик 57</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="bottom">
-                <p>&#169; PetFind.Me All Rights Reserved 2020</p>
-            </section>
-        </footer>
     {% endblock %}
 </div>
 
