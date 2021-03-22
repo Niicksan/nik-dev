@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -190,10 +191,9 @@ class Article
         return $this->author;
     }
 
-    public function setAuthor(User $author = null): self
+    public function setAuthor(UserInterface $author = null)
     {
         $this->author = $author;
-
         return $this;
     }
 

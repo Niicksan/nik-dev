@@ -1,9 +1,9 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -17,7 +17,7 @@ class ArticleController extends AbstractController
      * @param Request $request
      *
      * @Route("/article/create", name="article_create")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
