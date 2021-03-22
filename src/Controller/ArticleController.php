@@ -10,6 +10,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ArticleController extends AbstractController
 {
@@ -17,44 +18,48 @@ class ArticleController extends AbstractController
      * @param Request $request
      *
      * @Route("/article/create", name="article_create")
-     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, AuthorizationCheckerInterface $authChecker)
     {
-        $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
+        if (true === $authChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+            return $this->redirectToRoute('security_login');
+        } elseif (true === $authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED' || true === $authChecker->isGranted('IS_AUTHENTICATED_FULLY'))) {
+            $article = new Article();
+            $form = $this->createForm(ArticleType::class, $article);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $article->setAuthor($this->getUser());
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $article->setAuthor($this->getUser());
 
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form['imageFile']->getData();
+                /** @var UploadedFile $uploadedFile */
+                $uploadedFile = $form['imageFile']->getData();
 
-            $destination = $this->getParameter('kernel.project_dir').'/web/images';
-            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME );
-            $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
+                $destination = $this->getParameter('kernel.project_dir').'/web/images';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME );
+                $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
 
-            $uploadedFile->move(
-                $destination,
-                $newFilename
-            );
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+                );
 
-            $article->setImageFilename($newFilename);
+                $article->setImageFilename($newFilename);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
 
-            return $this->redirectToRoute('home_index');
+                return $this->redirectToRoute('home_index');
+            }
+
+            return $this->render('article/create.html.twig',
+                array('form' => $form->createView()));
         }
 
-        return $this->render('article/create.html.twig',
-            array('form' => $form->createView()));
     }
 
     /**
