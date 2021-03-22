@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\Article;
@@ -26,6 +25,46 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig',
             ['articles' => $articles]
         );
+    }
+
+    /**
+     * @Route("/found", name="home_found")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function foundAction()
+    {
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBy(['isFound' => 'Намерен']);
+
+        return $this->render('home/found.html.twig',
+            ['articles' => $articles]
+        );
+    }
+
+    /**
+     * @Route("/lost", name="home_lost")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function lostAction()
+    {
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBy(['isFound' => "Изгубен"]);
+
+        return $this->render('home/lost.html.twig',
+            ['articles' => $articles]
+        );
+    }
+
+    /**
+     * @Route("/about", name="home_about")
+     */
+    public function aboutAction()
+    {
+        return $this->render('home/about.html.twig');
     }
 
     /**
