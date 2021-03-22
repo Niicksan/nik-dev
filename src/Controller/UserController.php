@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Article;
 use App\Entity\User;
+use App\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
