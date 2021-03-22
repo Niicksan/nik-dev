@@ -38,7 +38,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PetFindMeBundle\Entity\Article'
+            'data_class' => 'App\Entity\Article'
         ));
     }
 }
