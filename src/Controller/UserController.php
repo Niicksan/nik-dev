@@ -7,11 +7,19 @@ use App\Entity\User;
 use App\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     /**
      * @Route("/register", name="user_register")
      * @param Request $request
@@ -25,7 +33,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $password = $this->get('security.password_encoder')
+            $password = $this->passwordEncoder
                 ->encodePassword($user, $user->getPassword());
 
             $user->setPassword($password);
@@ -40,7 +48,6 @@ class UserController extends AbstractController
         return $this->render("user/register.html.twig",
             array('form'=>$form->createView())
         );
-
     }
 
     /**

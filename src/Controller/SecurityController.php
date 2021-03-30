@@ -1,10 +1,10 @@
 <?php
 
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
@@ -13,11 +13,17 @@ class SecurityController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction()
+    public function loginAction(AuthenticationUtils $authenticationUtils)
     {
-        return $this->render('security/login.html.twig');
-    }
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
 
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig',
+            ['last_username' => $lastUsername, 'error' => $error]);
+    }
 
     /**
      * This is the route the user can use to logout.
@@ -31,5 +37,4 @@ class SecurityController extends AbstractController
     {
         throw new \Exception('This should never be reached!');
     }
-
 }

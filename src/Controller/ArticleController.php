@@ -18,48 +18,43 @@ class ArticleController extends AbstractController
      * @param Request $request
      *
      * @Route("/article/create", name="article_create")
-     *
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(Request $request, AuthorizationCheckerInterface $authChecker)
+    public function create(Request $request)
     {
-        if (true === $authChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-            return $this->redirectToRoute('security_login');
-        } elseif (true === $authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED' || true === $authChecker->isGranted('IS_AUTHENTICATED_FULLY'))) {
-            $article = new Article();
-            $form = $this->createForm(ArticleType::class, $article);
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid())
-            {
-                $article->setAuthor($this->getUser());
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $article->setAuthor($this->getUser());
 
-                /** @var UploadedFile $uploadedFile */
-                $uploadedFile = $form['imageFile']->getData();
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['imageFile']->getData();
 
-                $destination = $this->getParameter('kernel.project_dir').'/web/images';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME );
-                $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
+            $destination = $this->getParameter('kernel.project_dir').'/web/images';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME );
+            $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
 
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
 
-                $article->setImageFilename($newFilename);
+            $article->setImageFilename($newFilename);
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($article);
-                $em->flush();
-
-                return $this->redirectToRoute('home_index');
-            }
-
-            return $this->render('article/create.html.twig',
-                array('form' => $form->createView()));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+            return $this->redirectToRoute('home_index');
         }
 
+        return $this->render('article/create.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
     /**
@@ -68,7 +63,7 @@ class ArticleController extends AbstractController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/myArticles/edit/{id}", name="article_edit")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      *
      */
     public function edit(Request $request, $id)
@@ -118,7 +113,7 @@ class ArticleController extends AbstractController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/myArticles/delete/{id}", name="article_delete")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      *
      */
     public function delete(Request $request, $id)
