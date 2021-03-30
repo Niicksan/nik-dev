@@ -10,7 +10,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ArticleController extends AbstractController
 {
@@ -35,7 +34,7 @@ class ArticleController extends AbstractController
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['imageFile']->getData();
 
-            $destination = $this->getParameter('kernel.project_dir').'/web/images';
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME );
             $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
 
@@ -80,13 +79,13 @@ class ArticleController extends AbstractController
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['imageFile']->getData();
 
-            $destination = $this->getParameter('kernel.project_dir').'/web/images';
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME );
             $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
 
             $articleOldFilename = $article->getImageFilename();
             $fs = new Filesystem();
-            $fs->remove($this->get('kernel')->getRootDir().'/../web/images/'.$articleOldFilename);
+            $fs->remove($this->get('kernel')->getRootDir().'/../public/uploads/'.$articleOldFilename);
 
             $uploadedFile->move(
                 $destination,
@@ -130,7 +129,7 @@ class ArticleController extends AbstractController
         {
             $articleOldFilename = $article->getImageFilename();
             $fs = new Filesystem();
-            $fs->remove($this->get('kernel')->getRootDir().'/../web/images/'.$articleOldFilename);
+            $fs->remove($this->get('kernel')->getRootDir().'/../public/uploads/'.$articleOldFilename);
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($article);
