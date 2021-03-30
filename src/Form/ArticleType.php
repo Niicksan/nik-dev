@@ -49,7 +49,6 @@ class ArticleType extends AbstractType
                     'Намерен' => 'found'
                 ],
                 'attr' => [
-                    'placeholder' => 'Изгубен/Намерен',
                     'name' => 'article[isFound]',
                     'class' => 'form-control',
                     'id' => 'isFound'
