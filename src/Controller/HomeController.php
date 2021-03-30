@@ -36,7 +36,7 @@ class HomeController extends AbstractController
         $articles = $this
             ->getDoctrine()
             ->getRepository(Article::class)
-            ->findBy(['isFound' => 'Намерен']);
+            ->findBy(['isFound' => 'found']);
 
         return $this->render('home/found.html.twig',
             ['articles' => $articles]
@@ -52,7 +52,7 @@ class HomeController extends AbstractController
         $articles = $this
             ->getDoctrine()
             ->getRepository(Article::class)
-            ->findBy(['isFound' => "Изгубен"]);
+            ->findBy(['isFound' => "lost"]);
 
         return $this->render('home/lost.html.twig',
             ['articles' => $articles]
