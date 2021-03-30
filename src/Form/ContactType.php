@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -25,9 +26,6 @@ class ContactType extends AbstractType
                         'placeholder' => 'Вашето име',
                         'class' => 'form-control',
                     ],
-                    'label_attr' => [
-                        'class' => 'col-sm-6 control-label',
-                    ],
                 ]
             )
             ->add('email',EmailType::class, [
@@ -36,9 +34,6 @@ class ContactType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Вашият email',
                     'class' => 'form-control',
-                ],
-                'label_attr' => [
-                    'class' => 'col-sm-6 control-label',
                 ],
             ])
             ->add('message', TextareaType::class, [
@@ -49,10 +44,14 @@ class ContactType extends AbstractType
                     'class' => 'form-control',
                     'rows' => '6',
                 ],
-                'label_attr' => [
-                    'class' => 'col-sm-7 control-label',
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Изпрати',
+                'attr' => [
+                    'class' => 'btn btn-primary',
                 ],
-            ]);
+            ]
+        );
     }
 
     /**

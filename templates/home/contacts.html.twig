@@ -10,28 +10,30 @@
                     <legend>Свържете се с нас</legend>
 
                     <div class="form-group">
-                        <div class="col-sm-6">
-                            {{ form_row(contactForm.name) }}
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            {{ form_row(contactForm.email) }}
+                        <label class="col-sm-4 control-label" for="isFound">{{ form_label(contactForm.name) }}</label>
+                        <div class="col-sm-4">
+                            {{ form_widget(contactForm.name) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-sm-6">
-                            {{ form_row(contactForm.message) }}
+                        <label class="col-sm-4 control-label" for="isFound">{{ form_label(contactForm.email) }}</label>
+                        <div class="col-sm-4">
+                            {{ form_widget(contactForm.email) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="isFound">{{ form_label(contactForm.message) }}</label>
+                        <div class="col-sm-4">
+                            {{ form_widget(contactForm.message) }}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-4">
                             <a class="btn btn-default" href="{{ path('home_index') }}">Назад</a>
-                            <button type="submit" class="btn btn-primary">Изпрати</button>
+                            {{ form_widget(contactForm.submit) }}
                         </div>
                     </div>
                 </fieldset>
