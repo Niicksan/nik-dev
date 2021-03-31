@@ -49,12 +49,12 @@ class Article
     private $phone;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="authorId", type="integer")
      */
     private $authorId;
 
@@ -153,29 +153,30 @@ class Article
 
     public function getSummary()
     {
-        return $this->summary;
-    }
-
-    public function setSummary($summary): void
-    {
-        if (strlen($this->getContent()) > 100)
-        {
-            $this->summary = substr($this->getContent(), 0,
-                    strlen($this->getContent()) / 2) . "...";
-        }
-        else
-        {
-            $this->summary = $this->getContent();
-        }
-    }
-
-    public function getAuthorId(): ?int
-    {
         if ($this->summary === null)
         {
             $this->setSummary();
         }
 
+        return $this->summary;
+    }
+
+    public function setSummary(): void
+    {
+//        if (strlen($this->getContent()) > 100)
+//        {
+//            $this->summary = substr($this->getContent(), 0,
+//                    strlen($this->getContent()) / 2) . "...";
+//        }
+//        else
+//        {
+//            $this->summary = $this->getContent();
+//        }
+        $this->summary = $this->getContent();
+    }
+
+    public function getAuthorId()
+    {
         return $this->authorId;
     }
 
@@ -186,12 +187,17 @@ class Article
         return $this;
     }
 
-    public function getAuthor(): ?string
+    /**
+     * Get Author
+     *
+     * @return \App\Entity\User
+     */
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(UserInterface $author = null)
+    public function setAuthor(?UserInterface $author)
     {
         $this->author = $author;
         return $this;

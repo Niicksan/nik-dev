@@ -45,8 +45,8 @@ class ArticleType extends AbstractType
                 'required' => true,
                 'label' => 'Изгубен/Намерен',
                 'choices'  => [
-                    'Изгубен' => 'lost',
-                    'Намерен' => 'found'
+                    'Изгубен' => 'Изгубен',
+                    'Намерен' => 'Намерен'
                 ],
                 'attr' => [
                     'name' => 'article[isFound]',

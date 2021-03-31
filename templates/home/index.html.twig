@@ -11,7 +11,7 @@
                 <div class="grid-container">
                     <a href="{{ path('article_view',{'id':article.id}) }}">
                         <section class="ad-container">
-                            <img src="images/{{ article.imageFilename }}" alt="{{ article.title }}">
+                            <img src="uploads/{{ article.imageFilename }}" alt="{{ article.title }}">
 
                             <div class="ad-section-container">
                                 <div class="ad-head-container">
@@ -25,7 +25,7 @@
 
                                 <div class="ad-footer-container">
                                     <p class=""><span class="bold">Град: </span>{{ article.town }}</p>
-                                    <p class=""><span class="bold">За връзка: </span>{{ article.author.fullName }}</p>
+                                    <p class=""><span class="bold">За връзка: </span>{{ article.author.fullName}}</p>
                                     <p class=""><span class="bold">Телефон: </span>{{ article.phone }}</p>
                                     <p><span class="bold">Публикувана: </span><span>{{ article.dateAdded|date("d.m.Y") }}</span></p>
                                 </div>
