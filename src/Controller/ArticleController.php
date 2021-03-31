@@ -27,7 +27,6 @@ class ArticleController extends AbstractController
 
         $form->handleRequest($request);
 
-        dump($this->getUser());
         if ($form->isSubmitted() && $form->isValid())
         {
             $article->setAuthor($this->getUser());
@@ -86,7 +85,7 @@ class ArticleController extends AbstractController
 
             $articleOldFilename = $article->getImageFilename();
             $fs = new Filesystem();
-            $fs->remove($this->get('kernel')->getRootDir().'/../public/uploads/'.$articleOldFilename);
+            $fs->remove($this->getParameter('kernel.project_dir').'/public/uploads/'.$articleOldFilename);
 
             $uploadedFile->move(
                 $destination,
@@ -96,7 +95,6 @@ class ArticleController extends AbstractController
             $article->setImageFilename($newFilename);
 
             $em = $this->getDoctrine()->getManager();
-            $em->merge($article);
             $em->flush();
 
             return $this->redirectToRoute('user_articles');
@@ -130,7 +128,7 @@ class ArticleController extends AbstractController
         {
             $articleOldFilename = $article->getImageFilename();
             $fs = new Filesystem();
-            $fs->remove($this->get('kernel')->getRootDir().'/../public/uploads/'.$articleOldFilename);
+            $fs->remove($this->getParameter('kernel.project_dir').'/public/uploads/'.$articleOldFilename);
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($article);
