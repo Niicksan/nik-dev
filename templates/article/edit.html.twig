@@ -4,71 +4,62 @@
 
     <div class="container body-content span=8 offset=2">
         <div class="well">
-            <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+            {{ form_start(articleForm, {'method': 'POST', 'multipart': true, 'attr': {'class': 'form-horizontal'} }) }}
                 <fieldset>
-                    <legend>Радактирайте вашата обявата</legend>
+                    <legend>Радактирайте вашия сигнал</legend>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_title">Заглавие</label>
+                        <label class="col-sm-4 control-label" for="article_title">{{ form_label(articleForm.title) }}</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="article_title"
-                                   name="article[title]" value="{{ article.title }}">
+                            {{ form_widget(articleForm.title, { value: article.title }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_image">Снимка</label>
+                        <label class="col-sm-4 control-label" for="article_image">{{ form_label(articleForm.imageFile) }}</label>
                         <div class="col-sm-4 ">
-                            <input type="file" class="form-control" id="article_image"
-                                   name="article[imageFile]" value="{{ article.imageFilename }}">
+                            {{ form_widget(articleForm.imageFile, { value: article.imageFilename }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="isFound">Изгубен/Намерен</label>
+                        <label class="col-sm-4 control-label" for="isFound">{{ form_label(articleForm.isFound) }}</label>
                         <div class="col-sm-4 ">
-                            <select class="form-control" name="article[isFound]" id="isFound" >
-                                <option value="" selected disabled hidden>{{ article.isFound }}</option>
-                                <option value="Изгубен">Изгубен</option>
-                                <option value="Намерен">Намерен</option>
-                            </select>
+                            {{ form_widget(articleForm.isFound, { value: article.isFound }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_town">Град</label>
+                        <label class="col-sm-4 control-label" for="article_town">{{ form_label(articleForm.town) }}</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="article_town"
-                                   name="article[town]" value="{{ article.town }}">
+                            {{ form_widget(articleForm.town, { value: article.town }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_phone">Телефон</label>
+                        <label class="col-sm-4 control-label" for="article_phone">{{ form_label(articleForm.phone) }}</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="article_phone"
-                                   name="article[phone]" value="{{ article.phone }}">
+                            {{ form_widget(articleForm.phone, { value: article.phone }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_content">Описание</label>
+                        <label class="col-sm-4 control-label" for="article_content">{{ form_label(articleForm.content) }}</label>
                         <div class="col-sm-4">
-                            <textarea class="form-control" rows="6" id="article_content"
-                                      name="article[content]" placeholder="Добавете описние">{{ article.content }}</textarea>
+                            {{ form_widget(articleForm.content,{ value: article.content }) }}
                         </div>
                     </div>
 
-                    {{ form_row(form._token) }}
+                    {{ form_row(articleForm._token) }}
 
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-4">
                             <a class="btn btn-default" href="{{ path('user_articles') }}">Назад</a>
-                            <button type="submit" class="btn btn-success">Редактирай</button>
+                            {{ form_widget(articleForm.submit, { label: 'Редактирай', 'attr': {'class': 'btn btn-success'}}) }}
                         </div>
                     </div>
                 </fieldset>
-            </form>
+            {{ form_end(artcileForm) }}
         </div>
     </div>
 

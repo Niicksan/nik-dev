@@ -53,7 +53,7 @@ class ArticleController extends AbstractController
         }
 
         return $this->render('article/create.html.twig',
-            array('artcileForm' => $form->createView())
+            array('articleForm' => $form->createView())
         );
     }
 
@@ -103,7 +103,7 @@ class ArticleController extends AbstractController
         }
 
         return $this->render('article/edit.html.twig',
-            ['form' => $form->createView(), 'article' => $article]
+            ['articleForm' => $form->createView(), 'article' => $article]
         );
     }
 
@@ -140,7 +140,7 @@ class ArticleController extends AbstractController
         }
 
         return $this->render('article/delete.html.twig',
-            ['form' => $form->createView(), 'article' => $article]
+            ['articleForm' => $form->createView(), 'article' => $article]
         );
     }
 
