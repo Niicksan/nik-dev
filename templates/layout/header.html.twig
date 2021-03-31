@@ -11,16 +11,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{{ path('home_lost') }}">Изгубени</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('home_found') }}">Намерени</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('article_create') }}">Подай сигнал</a>
+                    </li>
                     {% if app.user %}
-                        <li>
-                            <a href="{{ path('home_lost') }}">Изгубени</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('home_found') }}">Намерени</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('article_create') }}">Подай сигнал</a>
-                        </li>
                         <li>
                             <a href="{{ path('user_articles') }}">Моите сигнали</a>
                         </li>
@@ -31,15 +31,6 @@
                             <a href="{{ path('security_logout') }}">Излез</a>
                         </li>
                     {% else %}
-                        <li>
-                            <a href="{{ path('home_lost') }}">Изгубени</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('home_found') }}">Намерени</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('article_create') }}">Подай сигнал</a>
-                        </li>
                         <li>
                             <a href="{{ path('user_register') }}">Регистрация</a>
                         </li>
