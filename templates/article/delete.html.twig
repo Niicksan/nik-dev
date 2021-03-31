@@ -5,7 +5,6 @@
     <div class="container body-content span=8 offset=2">
         <div class="well">
             {{ form_start(articleForm, {'method': 'POST', 'attr': {'class': 'form-horizontal'} }) }}
-            <form class="form-horizontal" action="" method="POST">
                 <fieldset>
                     <legend>Изтрийте вашия сигнал</legend>
 
@@ -60,7 +59,7 @@
                         </div>
                     </div>
                 </fieldset>
-            </form>
+            {{ form_end(artcileForm) }}
         </div>
     </div>
 
