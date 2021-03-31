@@ -13,60 +13,38 @@
                 <ul class="nav navbar-nav navbar-right">
                     {% if app.user %}
                         <li>
-                            <a href="{{ path('home_lost') }}">
-                                Изгубени
-                            </a>
+                            <a href="{{ path('home_lost') }}">Изгубени</a>
                         </li>
                         <li>
-                            <a href="{{ path('home_found') }}">
-                                Намерени
-                            </a>
+                            <a href="{{ path('home_found') }}">Намерени</a>
                         </li>
                         <li>
-                            <a href="{{ path('article_create') }}">
-                                Добави обява
-                            </a>
+                            <a href="{{ path('article_create') }}">Подай сигнал</a>
                         </li>
                         <li>
-                            <a href="{{ path('user_articles') }}">
-                                Моите обяви
-                            </a>
+                            <a href="{{ path('user_articles') }}">Моите сигнали</a>
                         </li>
                         <li>
-                            <a href="{{ path('user_profile') }}">
-                                Моят профил
-                            </a>
+                            <a href="{{ path('user_profile') }}">Моят профил</a>
                         </li>
                         <li>
-                            <a href="{{ path('security_logout') }}">
-                                Излез
-                            </a>
+                            <a href="{{ path('security_logout') }}">Излез</a>
                         </li>
                     {% else %}
                         <li>
-                            <a href="{{ path('home_lost') }}">
-                                Изгубени
-                            </a>
+                            <a href="{{ path('home_lost') }}">Изгубени</a>
                         </li>
                         <li>
-                            <a href="{{ path('home_found') }}">
-                                Намерени
-                            </a>
+                            <a href="{{ path('home_found') }}">Намерени</a>
                         </li>
                         <li>
-                            <a href="{{ path('article_create') }}">
-                                Добави обява
-                            </a>
+                            <a href="{{ path('article_create') }}">Подай сигнал</a>
                         </li>
                         <li>
-                            <a href="{{ path('user_register') }}">
-                                Регистрация
-                            </a>
+                            <a href="{{ path('user_register') }}">Регистрация</a>
                         </li>
                         <li>
-                            <a href="{{ path('security_login') }}">
-                                Вход
-                            </a>
+                            <a href="{{ path('security_login') }}">Вход</a>
                         </li>
                     {% endif %}
                 </ul>
