@@ -85,7 +85,7 @@ class ArticleType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Добави',
+                'label' => 'Подай сигнал',
                 'attr' => [
                     'class' => 'btn btn-primary',
                 ],
